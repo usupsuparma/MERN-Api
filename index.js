@@ -6,4 +6,6 @@ app.use(() => {
     console.log('ini lagi');
 })
 
+// get '/users/ ==> [{name: usup}]
+
 app.listen(4000);
