@@ -1,10 +1,9 @@
 const express = require('express');
 
 const app = express();
-app.use(() => {
-    console.log('hellow server..');
-    console.log('ini lagi');
-})
+const productRoutes = require('./src/routes/products');
+
+app.use('/', productRoutes);
 
 // get '/users/ ==> [{name: usup}]
 
