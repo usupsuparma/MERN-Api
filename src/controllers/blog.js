@@ -164,7 +164,7 @@ exports.deleteBlogPost = (req, res, next) => {
 const removeImage = (filePath) => {
     console.log(filePath);
     console.log('dir name: ', __dirname);
-    filePath = path.join(__dirname, '../../', filePath);
+    filePath = path.join(__dirname, '../../', filePath); // ../../ digunakan untuk berpindah posisi folder
     console.log(filePath);
     fs.unlink(filePath, err => console.log(err));
 }
