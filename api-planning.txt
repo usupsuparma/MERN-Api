@@ -1,0 +1,75 @@
+Standar API
+{root.api}/v1/{grouping}/{endpoint}
+http://api.kabarancoding.com/v1/auth/login
+
+Standar Status Response
+200 -- OK                       --> Call API Success
+201 -- CREATED                  --> Post Success
+400 -- BAD REQUEST              --> Error on Client Side (Bisa input salah dll)
+401 -- UNAUTHORIZED             --> User not authorized to the REQUEST
+403 -- FORBIDDEN                --> User not allowed to access.
+404 -- NOT FOUNT                --> Request endpoint Not FOUNT
+500 -- INTERNAL SERVER ERROR    --> Error on Server Side
+502 -- BAD GATEWAY              --> Invalid Response From Antoher Request
+
+
+GROUP: Authentication
+
+[1] --> Register
+{root.api}/{version}/auth/Register
+
+req:
+{
+    "name": "Testing,
+    "email": "test@mail.com"
+    "password": "123"
+}
+
+res:
+{
+    "message": "Register Success",
+    "data": {
+        "id":1,
+        "email": "test@mail.com",
+
+    }
+}
+[2] - login
+
+GROUP: BLog
+
+[1] - Create Blog Post
+[POST] : {root.api}/{version}/blog/post
+
+reg:
+{
+    "title": "Title Blog",
+    "image": "imageFile.png",
+    "body": "Lorem ipsum is simply dummy text of the printing",
+}
+
+res:
+{
+    "message": "Create Blog Post Success",
+    "data": {
+        "post_id": 1,
+        "title": "Title blog",
+        "image": imageFile.png",
+        "body": "Lorem ipsum is simply dummy text of the printing",
+        "created_ath": "12/06/2020",
+        "author" : {
+            "uuid": 1,
+            "name" : "Testing"
+        }
+    }
+}
+
+err->response:
+201 --> Blog Post berhasil dibuat
+400 --> Input yang anda masukan tidak valid
+
+==============================================================
+
+[2] --> Get Blob Post
+[3] --> Update Blog Post
+[4] --> Delete Blog Post
