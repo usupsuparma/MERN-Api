@@ -33,7 +33,7 @@ app.use(multer({storage: fileStorage, fileFilter: fileFilter}).single('image'));
 
 app.use((req, res, next)=> {
     // untuk mengatasi error cors origin
-    res.setHeader('Access-Control-Allow-Origin', 'https://codepen.io');
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
     res.setHeader('Access-Control-Allow-Method', 'GET, POST, PUT, FETCH, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     next();
@@ -51,11 +51,20 @@ app.use((error, req, res, next) => {
 
 // get '/users/ ==> [{name: usup}]
 
-mongoose.connect('mongodb+srv://usupsuparma:C!ntaku7@cluster0.imjca.mongodb.net/blog?retryWrites=true&w=majority')
+// mongoose.connect('mongodb+srv://usupsuparma:C!ntaku7@cluster0.imjca.mongodb.net/blog?retryWrites=true&w=majority')
+// .then(() => {
+//     app.listen(4000, () => console.log('Connection Success'));
+// })
+// .catch(err => {
+//     console.log('error');
+//     console.log(err);
+// });
+mongoose.connect(
+    'mongodb://localhost:27017/post'
+)
 .then(() => {
-    app.listen(4000, () => console.log('Connection Success'));
+    app.listen(4000, () => console.log('ConnectionSuccess'))
 })
 .catch(err => {
-    console.log('error');
     console.log(err);
-});
+})

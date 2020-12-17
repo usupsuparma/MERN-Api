@@ -54,16 +54,39 @@ exports.createBlogPost = (req, res, next) => {
 }
 
 exports.getAllData = (req, res, next) => {
+    const currentPage = req.query.page || 1;
+    const perPage = req.query.perPage || 5;
+    let totalItems;
+
     BlogPost.find()
+    .countDocuments()
+    .then(count => {
+        totalItems = count;
+        return BlogPost.find()
+        .skip((parseInt(currentPage) - 1) * parseInt(perPage))
+        .limit(parseInt(perPage));
+    })
     .then(result => {
         res.status(200).json({
             message: 'All Data Blog Post',
             data: result,
+            total_data: totalItems,
+            per_page: parseInt(perPage),
+            current_page: parseInt(currentPage),
         })
     })
-    .catch(err => {
-        next(err);
-    });
+    .catch(err => next(err));
+
+    // BlogPost.find()
+    // .then(result => {
+    //     res.status(200).json({
+    //         message: 'All Data Blog Post',
+    //         data: result,
+    //     })
+    // })
+    // .catch(err => {
+    //     next(err);
+    // });
 }
 
 exports.getDetailData = (req, res, next) => {
@@ -162,8 +185,6 @@ exports.deleteBlogPost = (req, res, next) => {
 }
 
 const removeImage = (filePath) => {
-    console.log(filePath);
-    console.log('dir name: ', __dirname);
     filePath = path.join(__dirname, '../../', filePath); // ../../ digunakan untuk berpindah posisi folder
     console.log(filePath);
     fs.unlink(filePath, err => console.log(err));
